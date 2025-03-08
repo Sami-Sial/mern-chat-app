@@ -31,7 +31,7 @@ const SignUp = () => {
     try {
       setLoading(true);
       const { data } = await axios.post(
-        "/api/user/signup",
+        "https://mern-chat-app-backend-flax.vercel.app/api/user/signup",
         { ...formData },
         { headers: { "Content-Type": "multipart/form-data" } }
       );
