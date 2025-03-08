@@ -13,7 +13,7 @@ const isLoggedIn = async (req, res, next) => {
   ) {
     token = req.headers.authorization.split(" ")[1];
   } else {
-    return next(new ErrorHandler(401, "Please Login to access this Resource"));
+    return next(new ExpressError(401, "Please Login to access this Resource"));
   }
 
   const decodedData = jwt.verify(token, process.env.JWT_SECRET);
