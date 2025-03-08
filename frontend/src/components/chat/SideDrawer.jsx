@@ -17,8 +17,10 @@ const SideDrawer = ({ setOpenDrwer }) => {
 
   const fetchUsers = async () => {
     try {
+      const { token } = JSON.parse(localStorage.getItem("userInfo"));
       const { data } = await axios.get(
-        `https://mern-chat-app-backend-flax.vercel.app/api/user/all-users?search=${searchInput}`
+        `https://mern-chat-app-backend-flax.vercel.app/api/user/all-users?search=${searchInput}`,
+        { headers: { Authorization: `Bearer {token}` } }
       );
 
       setUsers(data);
@@ -42,11 +44,17 @@ const SideDrawer = ({ setOpenDrwer }) => {
   const accessChat = async (userId) => {
     try {
       setLoading(true);
+      const { token } = JSON.parse(localStorage.getItem("userInfo"));
 
       const { data } = await axios.post(
         "https://mern-chat-app-backend-flax.vercel.app/api/chats",
         { userId },
-        { headers: { "Content-Type": "application/json" } }
+        {
+          headers: [
+            { "Content-Type": "application/json" },
+            { Authorization: `Bearer ${token}` },
+          ],
+        }
       );
 
       setOpenDrwer(false);

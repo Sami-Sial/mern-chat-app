@@ -46,6 +46,7 @@ const MyChats = () => {
     setSelectedChat,
     notification,
   } = ChatState();
+  const { token } = JSON.parse(localStorage.getItem("userInfo"));
 
   let loggedUser = user;
   const getSender = (users) => {
@@ -64,7 +65,8 @@ const MyChats = () => {
     const fetchChats = async () => {
       try {
         const { data } = await axios.get(
-          "https://mern-chat-app-backend-flax.vercel.app/api/chats"
+          "https://mern-chat-app-backend-flax.vercel.app/api/chats",
+          { headers: { Authorization: `Bearer ${token}` } }
         );
 
         setChats(data);
@@ -80,7 +82,8 @@ const MyChats = () => {
   const logout = async () => {
     try {
       const { data } = await axios.get(
-        "https://mern-chat-app-backend-flax.vercel.app/api/user/logout"
+        "https://mern-chat-app-backend-flax.vercel.app/api/user/logout",
+        { headers: { Authorization: `Bearer ${token}` } }
       );
       localStorage.setItem("userInfo", "");
       toast.success("Logout successfull");

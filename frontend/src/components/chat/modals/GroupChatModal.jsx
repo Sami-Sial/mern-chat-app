@@ -21,13 +21,15 @@ const GroupChatModal = ({ modalShow }) => {
   const [loading, setLoading] = useState(false);
 
   const { chats, setChats, setGroupModalShow } = ChatState();
+  const { token } = JSON.parse(localStorage.getItem("userInfo"));
 
   const searchHandler = async (query) => {
     try {
       setLoading(true);
 
       const { data } = await axios.get(
-        `https://mern-chat-app-backend-flax.vercel.app/api/user/all-users?search=${query}`
+        `https://mern-chat-app-backend-flax.vercel.app/api/user/all-users?search=${query}`,
+        { headers: { Authorization: `Bearer ${token}` } }
       );
 
       setSearchResult(data);
@@ -71,7 +73,12 @@ const GroupChatModal = ({ modalShow }) => {
           name: groupChatName,
           users: JSON.stringify(selectedUsers.map((user) => user._id)),
         },
-        { headers: { "Content-Type": "application/json" } }
+        {
+          headers: [
+            { "Content-Type": "application/json" },
+            { Authorization: `Bearer ${token}` },
+          ],
+        }
       );
 
       setChats(data, ...chats);

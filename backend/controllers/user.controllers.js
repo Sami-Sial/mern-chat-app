@@ -31,7 +31,8 @@ const registerUser = asyncErrorHandler(async (req, res, next) => {
     const savedUser = await user.save();
 
     if (user) {
-      res.status(200).json(savedUser);
+      let token = generateToken(user._id);
+      res.status(200).json({ ...savedUser, token });
     } else {
       return next(new ExpressError(400, "Failed to create User."));
     }
@@ -60,8 +61,8 @@ const loginUser = asyncErrorHandler(async (req, res, next) => {
   const isUserExists = (result) => {
     if (result == true) {
       req.user = user;
-      res.cookie("token", generateToken(user._id));
-      res.status(200).send(user);
+      let token = generateToken(user._id);
+      res.status(200).json({ ...user, token });
       console.log("Successfully logged in");
     } else {
       return next(new ExpressError(400, "Email or password is incorrect."));
@@ -70,10 +71,10 @@ const loginUser = asyncErrorHandler(async (req, res, next) => {
 });
 
 const logout = asyncErrorHandler(async (req, res, next) => {
-  res.cookie("token", null, {
-    expires: new Date(Date.now()),
-    httpOnly: true,
-  });
+  // res.cookie("token", null, {
+  //   expires: new Date(Date.now()),
+  //   httpOnly: true,
+  // });
 
   res.status(200).json({
     success: true,

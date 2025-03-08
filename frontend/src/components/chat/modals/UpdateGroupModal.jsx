@@ -20,13 +20,15 @@ const UpdateGroupModal = ({ setShowUpdateGroupModal }) => {
   const [loading, setLoading] = useState(false);
 
   const { user, selectedChat, setSelectedChat } = ChatState();
+  const { token } = JSON.parse(localStorage.getItem("userInfo"));
 
   const searchHandler = async (query) => {
     try {
       setLoading(true);
 
       const { data } = await axios.get(
-        `https://mern-chat-app-backend-flax.vercel.app/api/user/all-users?search=${query}`
+        `https://mern-chat-app-backend-flax.vercel.app/api/user/all-users?search=${query}`,
+        { headers: { Authorization: `Bearer ${token}` } }
       );
 
       setSearchResult(data);
@@ -44,7 +46,12 @@ const UpdateGroupModal = ({ setShowUpdateGroupModal }) => {
       const { data } = axios.put(
         "https://mern-chat-app-backend-flax.vercel.app/api/chats/group/rename",
         { chatId: selectedChat._id, chatName: groupChatName },
-        { headers: { "Content-Type": "application/json" } }
+        {
+          headers: [
+            { "Content-Type": "application/json" },
+            { Authorization: `Bearer ${token}` },
+          ],
+        }
       );
       console.log(data);
 
@@ -68,13 +75,19 @@ const UpdateGroupModal = ({ setShowUpdateGroupModal }) => {
 
     try {
       setLoading(true);
+      const { token } = JSON.parse(localStorage.getItem("userInfo"));
       const { data } = await axios.put(
         `https://mern-chat-app-backend-flax.vercel.app/api/chats/group/add_user`,
         {
           chatId: selectedChat._id,
           userId: user1._id,
         },
-        { headers: { "Content-Type": "application/json" } }
+        {
+          headers: [
+            { "Content-Type": "application/json" },
+            { Authorization: `Bearer ${token}` },
+          ],
+        }
       );
 
       setSelectedChat(data);
@@ -95,13 +108,19 @@ const UpdateGroupModal = ({ setShowUpdateGroupModal }) => {
 
     try {
       setLoading(true);
+      const { token } = JSON.parse(localStorage.getItem("userInfo"));
       const { data } = await axios.put(
         `https://mern-chat-app-backend-flax.vercel.app/api/chats/group/remove_user`,
         {
           chatId: selectedChat._id,
           userId: user1._id,
         },
-        { headers: { "Content-Type": "application/json" } }
+        {
+          headers: [
+            { "Content-Type": "application/json" },
+            { Authorization: `Bearer ${token}` },
+          ],
+        }
       );
 
       user1._id === user._id ? setSelectedChat() : setSelectedChat(data);

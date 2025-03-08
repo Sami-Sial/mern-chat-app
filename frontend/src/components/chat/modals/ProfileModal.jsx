@@ -16,8 +16,10 @@ const ProfileModal = ({ setProfileModalShow }) => {
 
   const logout = async () => {
     try {
+      const { token } = JSON.parse(localStorage.getItem("userInfo"));
       const { data } = await axios.get(
-        "https://mern-chat-app-backend-flax.vercel.app/api/user/logout"
+        "https://mern-chat-app-backend-flax.vercel.app/api/user/logout",
+        { headers: { Authorization: `Bearer ${token}` } }
       );
       localStorage.setItem("userInfo", "");
       toast.success("Logout successfull");

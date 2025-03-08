@@ -24,7 +24,7 @@ const LogIn = () => {
     try {
       setLoading(true);
       const { data } = await axios.post(
-        "/api/user/login",
+        "https://mern-chat-app-backend-flax.vercel.app/api/user/login",
         { ...formData },
         { headers: { "Content-Type": "application/json" } }
       );

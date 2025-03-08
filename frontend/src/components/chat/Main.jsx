@@ -54,6 +54,7 @@ const Main = () => {
     setIncomingVoiceCall,
     setIncomingVideoCall,
   } = ChatState();
+  const { token } = JSON.parse(localStorage.getItem("userInfo"));
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handleEmojiPopover = (event) => {
@@ -171,7 +172,8 @@ const Main = () => {
     try {
       if (!selectedChat) return;
       const { data } = await axios.get(
-        `https://mern-chat-app-backend-flax.vercel.app/api/message/${selectedChat._id}`
+        `https://mern-chat-app-backend-flax.vercel.app/api/message/${selectedChat._id}`,
+        { headers: { Authorization: `Bearer ${token}` } }
       );
 
       setMessages(data);
@@ -212,7 +214,12 @@ const Main = () => {
       const { data } = await axios.post(
         "https://mern-chat-app-backend-flax.vercel.app/api/message",
         { content, selcetedFile, chatId: selectedChat._id },
-        { headers: { "Content-Type": "multipart/form-data" } }
+        {
+          headers: [
+            { "Content-Type": "multipart/form-data" },
+            { Authorization: `Bearer ${token}` },
+          ],
+        }
       );
 
       console.log(data);

@@ -47,8 +47,10 @@ const VideoCall = () => {
   useEffect(() => {
     const getToken = async () => {
       try {
+        const { token } = JSON.parse(localStorage.getItem("userInfo"));
         const { data } = await axios.get(
-          `https://mern-chat-app-backend-flax.vercel.app/api/generate-token/${user._id}`
+          `https://mern-chat-app-backend-flax.vercel.app/api/generate-token/${user._id}`,
+          { headers: { Authorization: `Bearer ${token}` } }
         );
         console.log(data);
         setZegoToken(data.token);
