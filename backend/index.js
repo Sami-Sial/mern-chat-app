@@ -7,6 +7,16 @@ const app = express();
 const cors = require("cors");
 // const { Server } = require("socket.io");
 
+// data parsing
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL,
+  })
+);
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(cookieParser());
+
 // connecting to database
 const connectDB = async () => {
   await mongoose.connect(process.env.DB_URL);
@@ -18,16 +28,6 @@ connectDB()
   .catch((err) => {
     console.log("Mongo DB Connection failed.", err.message);
   });
-
-// data parsing
-app.use(
-  cors({
-    origin: process.env.FRONTEND_URL,
-  })
-);
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-app.use(cookieParser());
 
 // importing routes
 const userRoutes = require("./routes/user.routes");
