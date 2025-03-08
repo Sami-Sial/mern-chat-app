@@ -5,7 +5,7 @@ import logo from "../../../assets/logo.png";
 import { Button } from "@mui/material";
 
 import io from "socket.io-client";
-const ENDPOINT = "http://localhost:8080";
+const ENDPOINT = "https://mern-chat-app-backend-flax.vercel.app";
 let socket;
 
 const VoiceCall = () => {

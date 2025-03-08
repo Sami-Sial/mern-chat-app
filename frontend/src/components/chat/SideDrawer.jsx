@@ -18,7 +18,7 @@ const SideDrawer = ({ setOpenDrwer }) => {
   const fetchUsers = async () => {
     try {
       const { data } = await axios.get(
-        `/api/user/all-users?search=${searchInput}`
+        `https://mern-chat-app-backend-flax.vercel.app/api/user/all-users?search=${searchInput}`
       );
 
       setUsers(data);
@@ -44,7 +44,7 @@ const SideDrawer = ({ setOpenDrwer }) => {
       setLoading(true);
 
       const { data } = await axios.post(
-        "/api/chats",
+        "https://mern-chat-app-backend-flax.vercel.app/api/chats",
         { userId },
         { headers: { "Content-Type": "application/json" } }
       );

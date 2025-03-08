@@ -28,7 +28,7 @@ const Audio = ({ setShowVoiceComponent, setMessages, messages, socket }) => {
     if (mediaBlobUrl) {
       try {
         const { data } = await axios.post(
-          "/api/message",
+          "https://mern-chat-app-backend-flax.vercel.app/api/message",
           { audio, chatId: selectedChat._id },
           { headers: { "Content-Type": "multipart/form-data" } }
         );

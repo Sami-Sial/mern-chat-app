@@ -63,7 +63,9 @@ const MyChats = () => {
   useEffect(() => {
     const fetchChats = async () => {
       try {
-        const { data } = await axios.get("/api/chats");
+        const { data } = await axios.get(
+          "https://mern-chat-app-backend-flax.vercel.app/api/chats"
+        );
 
         setChats(data);
       } catch (error) {
@@ -77,7 +79,9 @@ const MyChats = () => {
 
   const logout = async () => {
     try {
-      const { data } = await axios.get("/api/user/logout");
+      const { data } = await axios.get(
+        "https://mern-chat-app-backend-flax.vercel.app/api/user/logout"
+      );
       localStorage.setItem("userInfo", "");
       toast.success("Logout successfull");
       navigate("/");

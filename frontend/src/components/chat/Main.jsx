@@ -170,7 +170,9 @@ const Main = () => {
   const fetchMessages = async () => {
     try {
       if (!selectedChat) return;
-      const { data } = await axios.get(`/api/message/${selectedChat._id}`);
+      const { data } = await axios.get(
+        `https://mern-chat-app-backend-flax.vercel.app/api/message/${selectedChat._id}`
+      );
 
       setMessages(data);
       console.log(data);
@@ -208,7 +210,7 @@ const Main = () => {
     try {
       let content = newMessage ? newMessage : null;
       const { data } = await axios.post(
-        "/api/message",
+        "https://mern-chat-app-backend-flax.vercel.app/api/message",
         { content, selcetedFile, chatId: selectedChat._id },
         { headers: { "Content-Type": "multipart/form-data" } }
       );

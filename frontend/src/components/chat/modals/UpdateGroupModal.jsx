@@ -25,7 +25,9 @@ const UpdateGroupModal = ({ setShowUpdateGroupModal }) => {
     try {
       setLoading(true);
 
-      const { data } = await axios.get(`/api/user/all-users?search=${query}`);
+      const { data } = await axios.get(
+        `https://mern-chat-app-backend-flax.vercel.app/api/user/all-users?search=${query}`
+      );
 
       setSearchResult(data);
       setLoading(false);
@@ -40,7 +42,7 @@ const UpdateGroupModal = ({ setShowUpdateGroupModal }) => {
     if (!groupChatName) return;
     try {
       const { data } = axios.put(
-        "/api/chats/group/rename",
+        "https://mern-chat-app-backend-flax.vercel.app/api/chats/group/rename",
         { chatId: selectedChat._id, chatName: groupChatName },
         { headers: { "Content-Type": "application/json" } }
       );
@@ -67,7 +69,7 @@ const UpdateGroupModal = ({ setShowUpdateGroupModal }) => {
     try {
       setLoading(true);
       const { data } = await axios.put(
-        `/api/chats/group/add_user`,
+        `https://mern-chat-app-backend-flax.vercel.app/api/chats/group/add_user`,
         {
           chatId: selectedChat._id,
           userId: user1._id,
@@ -94,7 +96,7 @@ const UpdateGroupModal = ({ setShowUpdateGroupModal }) => {
     try {
       setLoading(true);
       const { data } = await axios.put(
-        `/api/chats/group/remove_user`,
+        `https://mern-chat-app-backend-flax.vercel.app/api/chats/group/remove_user`,
         {
           chatId: selectedChat._id,
           userId: user1._id,

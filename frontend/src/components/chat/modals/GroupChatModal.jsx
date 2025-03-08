@@ -26,7 +26,9 @@ const GroupChatModal = ({ modalShow }) => {
     try {
       setLoading(true);
 
-      const { data } = await axios.get(`/api/user/all-users?search=${query}`);
+      const { data } = await axios.get(
+        `https://mern-chat-app-backend-flax.vercel.app/api/user/all-users?search=${query}`
+      );
 
       setSearchResult(data);
       setLoading(false);
@@ -64,7 +66,7 @@ const GroupChatModal = ({ modalShow }) => {
       setLoading(true);
 
       const { data } = await axios.post(
-        "/api/chats/group",
+        "https://mern-chat-app-backend-flax.vercel.app/api/chats/group",
         {
           name: groupChatName,
           users: JSON.stringify(selectedUsers.map((user) => user._id)),
