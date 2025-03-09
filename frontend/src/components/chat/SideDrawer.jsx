@@ -20,7 +20,7 @@ const SideDrawer = ({ setOpenDrwer }) => {
       const { token } = JSON.parse(localStorage.getItem("userInfo"));
       const { data } = await axios.get(
         `https://mern-chat-app-backend-flax.vercel.app/api/user/all-users?search=${searchInput}`,
-        { headers: { Authorization: `Bearer {token}` } }
+        { headers: { Authorization: `Bearer ${token}` } }
       );
 
       setUsers(data);
