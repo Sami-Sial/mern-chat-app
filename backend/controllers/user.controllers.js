@@ -32,7 +32,7 @@ const registerUser = asyncErrorHandler(async (req, res, next) => {
 
     if (user) {
       let token = generateToken(user._id);
-      res.status(200).json({ ...savedUser, token });
+      res.status(200).json({ savedUser, token });
     } else {
       return next(new ExpressError(400, "Failed to create User."));
     }
@@ -62,7 +62,7 @@ const loginUser = asyncErrorHandler(async (req, res, next) => {
     if (result == true) {
       req.user = user;
       let token = generateToken(user._id);
-      res.status(200).json({ ...user, token });
+      res.status(200).json({ user, token });
       console.log("Successfully logged in");
     } else {
       return next(new ExpressError(400, "Email or password is incorrect."));
