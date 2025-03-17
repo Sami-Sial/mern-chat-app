@@ -32,10 +32,10 @@ const Audio = ({ setShowVoiceComponent, setMessages, messages, socket }) => {
           "https://mern-chat-app-backend-flax.vercel.app/api/message",
           { audio, chatId: selectedChat._id },
           {
-            headers: [
-              { "Content-Type": "multipart/form-data" },
-              { Authorization: `Bearer ${token}` },
-            ],
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${token}`,
+            },
           }
         );
 

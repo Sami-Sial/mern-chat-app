@@ -215,10 +215,10 @@ const Main = () => {
         "https://mern-chat-app-backend-flax.vercel.app/api/message",
         { content, selcetedFile, chatId: selectedChat._id },
         {
-          headers: [
-            { "Content-Type": "multipart/form-data" },
-            { Authorization: `Bearer ${token}` },
-          ],
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
 

@@ -50,10 +50,10 @@ const SideDrawer = ({ setOpenDrwer }) => {
         "https://mern-chat-app-backend-flax.vercel.app/api/chats",
         { userId },
         {
-          headers: [
-            { "Content-Type": "application/json" },
-            { Authorization: `Bearer ${token}` },
-          ],
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
 
